@@ -1,5 +1,3 @@
-// --- NEW: Load environment variables ---
-// This *must* be at the very top
 import 'dotenv/config';
 
 import express from 'express';
@@ -11,7 +9,6 @@ import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
-// --- NEW: Check for required environment variables ---
 const requiredEnvVars = [
     'DB_HOST',
     'DB_USER',
@@ -26,23 +23,22 @@ if (missingVars.length > 0) {
     console.error('[FATAL ERROR] Missing required environment variables:');
     console.error(missingVars.join('\n'));
     console.error('Please create and configure your backend/.env file.');
-    process.exit(1); // Stop the server
+    process.exit(1); 
 }
 
-// --- CONFIG ---
-// All secrets are now read securely from process.env
+
 const HCAPTCHA_SECRET_KEY = process.env.HCAPTCHA_SECRET_KEY;
 const JWT_SECRET = process.env.JWT_SECRET;
 const PORT = process.env.PORT || 3001;
 
-// Database connection config
+
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
 };
-// --- END CONFIG ---
+
 
 // Create a connection pool
 let db;
